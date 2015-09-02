@@ -13,23 +13,6 @@ import argparse
 #todo: add a way to choose virtual env
 #todo: show a warning for unfound packages
 
-
-@contextlib.contextmanager
-def capture():
-    """for capturing stdout,  stolen from http://stackoverflow.com/a/10743550"""
-    
-    
-    oldout,olderr = sys.stdout, sys.stderr
-    try:
-        out=[StringIO(), StringIO()]
-        sys.stdout,sys.stderr = out
-        yield out
-    finally:
-        sys.stdout,sys.stderr = oldout, olderr
-        out[0] = out[0].getvalue()
-        out[1] = out[1].getvalue()
-
-
 def get_top_levels():
     '''returns a dict with the keys from all of the top_level.txt entries, and the freeze name as the value'''
     output = {}
@@ -45,14 +28,6 @@ def get_top_levels():
                     output[line.strip()] = freeze_name
     return output
 
-
-
-def get_freeze():
-    with capture() as out:
-        pip.main(['freeze'])
-    if not out[1]:
-        return out[0].splitlines()
-
 def get_py_files(project_path = None):
     if not project_path:
         project_path = os.getcwd()
@@ -62,8 +37,6 @@ def get_py_files(project_path = None):
         for file_name in file_names:
             if file_name.split('.')[-1] == 'py':
                 yield os.path.join(current_directory,file_name) 
-
-
 
 def get_imported_modules(py_file):
     """Takes a python file and yields all the modules imoprted
@@ -112,11 +85,7 @@ def main():
                         help="increase output verbosity")
     args = parser.parse_args()
 
-    if args.project_path:
-        project_path = args.project_path
-    else:
-        project_path = '.'
-    freeze(project_path = project_path)
+    freeze(project_path = args.project_path)
 
 if __name__ == '__main__':
     main()
