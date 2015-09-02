@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-
+"""A simple script for showing requirements actually in use in the same format as pip freeze"""
 import os
 from os import path
 import contextlib
@@ -8,6 +8,10 @@ from pip import get_installed_distributions
 import sys
 from cStringIO import StringIO
 from ast import parse, Import, ImportFrom
+import argparse
+
+#todo: add a way to choose virtual env
+#todo: show a warning for unfound packages
 
 
 @contextlib.contextmanager
@@ -32,12 +36,13 @@ def get_top_levels():
 
     for d in get_installed_distributions():
         freeze_name = '=='.join(str(d).split())
-        top_level = path.join(d.egg_info, 'top_level.txt')
-        if path.exists(top_level):
-            with open(top_level) as f:
-                a = f.read()
-            for line in a.splitlines():
-                output[line.strip()] = freeze_name
+        if d.egg_info:
+            top_level = path.join(d.egg_info, 'top_level.txt')
+            if path.exists(top_level):
+                with open(top_level) as f:
+                    a = f.read()
+                for line in a.splitlines():
+                    output[line.strip()] = freeze_name
     return output
 
 
@@ -97,8 +102,21 @@ def freeze(project_path):
     for r in make_freeze(project_path):
         print(r)
 def main():
-    freeze(project_path = None)
+    parser = argparse.ArgumentParser()
+    parser.add_argument("project_path",
+                        type=str,
+                        nargs='?',
+                        default=os.getcwd(),
+                        help="path of python project, defaults to current path ")
+    parser.add_argument("-v", "--verbose", action="store_true",
+                        help="increase output verbosity")
+    args = parser.parse_args()
 
+    if args.project_path:
+        project_path = args.project_path
+    else:
+        project_path = '.'
+    freeze(project_path = project_path)
 
 if __name__ == '__main__':
     main()
