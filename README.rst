@@ -36,7 +36,7 @@ Gotchas, and TODOS
 ==================
 
 * Will currently ignore any packages it can't find
-    *should atleast warn that these imports couldn't find a package
+    * should atleast warn that these imports couldn't find a package
 * There is some very specific data that it is currently ignoring, but I forget what it is.
 * Can not specify a specific virtualenv
 * Probably only works on python 2.7
