@@ -18,6 +18,7 @@ Usage
 
 Running requirements finder will give the same out put as pip freeze, but
 only with packages in use in the current directory (recursively)::
+
     myprompt$ requirementsfinder
     pip==6.1.1
     Flask==0.10.1
@@ -25,6 +26,7 @@ only with packages in use in the current directory (recursively)::
 
 
 You can also specify a path::
+
     myprompt$ requirementsfinder example/
     Flask==0.10.1
     requests==2.7.0
