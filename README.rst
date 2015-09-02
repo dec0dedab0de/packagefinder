@@ -36,11 +36,11 @@ Gotchas, and TODOS
 ==================
 
 * Will currently ignore any packages it can't find
-** should atleast warn that these imports couldn't find a package
+    *should atleast warn that these imports couldn't find a package
 * There is some very specific data that it is currently ignoring, but I forget what it is.
 * Can not specify a specific virtualenv
 * Probably only works on python 2.7
 * Relies heavily on pip
-** add support for packages installed by yum
-** add support for packages installed by apt
-** figure out other ways people install packages
+    * add support for packages installed by yum
+    * add support for packages installed by apt
+    * figure out other ways people install packages
