@@ -39,7 +39,7 @@ def get_py_files(project_path, depth = None, *args, **kwargs):
                         yield os.path.join(current_directory,file_name)
 
 def get_imported_modules(py_file):
-    """Takes a python file and yields all the modules imoprted
+    """Takes a python file and yields all the modules imported
     currently swallows all parsing errors, such as invalid syntax. """
     with open(py_file) as f:
         text = f.read()
