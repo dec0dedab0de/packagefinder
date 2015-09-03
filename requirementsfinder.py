@@ -12,6 +12,7 @@ import argparse
 
 def get_top_levels():
     '''returns a dict with the keys from all of the top_level.txt entries, and the freeze name as the value'''
+    #if we make a class this could be a cached property
     output = {}
 
     for d in get_installed_distributions():
@@ -25,19 +26,21 @@ def get_top_levels():
                     output[line.strip()] = freeze_name
     return output
 
-def get_py_files(project_path):
+def get_py_files(project_path, depth = None, *args, **kwargs):
     """
     Takes a path, yields a list of py files in that path.
 
     :param project_path: path to start at
     :return: a list of paths to python files
     """
+
     project_path = os.path.join(os.getcwd(), project_path)
 
     for current_directory, directory_names, file_names in os.walk(project_path):
-        for file_name in file_names:
-            if file_name.split('.')[-1] == 'py':
-                yield os.path.join(current_directory,file_name) 
+        if not depth or (depth and path_distance(project_path, current_directory) <= depth):
+            for file_name in file_names:
+                if file_name.split('.')[-1] == 'py':
+                    yield os.path.join(current_directory,file_name)
 
 def get_imported_modules(py_file):
     """Takes a python file and yields all the modules imoprted
@@ -56,26 +59,39 @@ def get_imported_modules(py_file):
     except:
         pass  #put specific parsing errors here
 
-def get_imported_top_levels(project_path):
+def get_imported_top_levels(project_path,*args, **kwargs):
     """takes a path, yields all the top level modules that are imported in all the python files"""
     imported_top_levels = set()
-    for py_file in get_py_files(project_path):
+    for py_file in get_py_files(project_path,*args, **kwargs):
         this_itl = set(module.split('.')[0] for module in get_imported_modules(py_file))
         new = this_itl.difference(imported_top_levels)
         imported_top_levels.update(new)
         for itl in new:
             yield itl
 
-def make_freeze(project_path):
+def make_freeze(project_path, *args, **kwargs):
     tld = get_top_levels()
-    for itl in get_imported_top_levels(project_path):
+    for itl in get_imported_top_levels(project_path,*args, **kwargs):
 
         if tld.get(itl):
             yield tld.get(itl)
-def freeze(project_path):
-    for r in make_freeze(project_path):
+def freeze(project_path, *args, **kwargs):
+    for r in make_freeze(project_path, *args, **kwargs):
         print(r)
-def main():
+
+def path_distance(path1, path2):
+    """takes 2 paths, returns the difference between them.
+    raises an error if the first one isn't a parent of the second
+    I think there should be a more pythonic way of doing this. """
+
+    path1list = [a for a in path1.split(os.path.sep) if a]
+    path2list = [a for a in path2.split(os.path.sep) if a]
+    for i, directory in enumerate(path1list):
+        if path2list[i] != directory:
+            raise Exception('{0} is not a parent of {1}'.format(path1,path2))
+    return len(path2list) - len(path1list)
+
+def get_arguments():
     parser = argparse.ArgumentParser()
     parser.add_argument("project_path",
                         type=str,
@@ -89,8 +105,12 @@ def main():
                         type = int,
                         help="How many levels deep to recurse(not implemented yet)")
     args = parser.parse_args()
+    return vars(args)
+def main():
+    args = get_arguments()
+    freeze(**args)
 
-    freeze(project_path = args.project_path)
+
 
 if __name__ == '__main__':
     main()

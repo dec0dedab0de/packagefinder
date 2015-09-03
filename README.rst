@@ -48,7 +48,6 @@ Gotchas, and TODOS
 - Only works with .py files in a directory
     - maybe allow specifying a single file, or list of files, or list of paths
     - it would be nice to handle other filetypes, like ipynb, or others.
-- Add an option to specify a depth for recurssing directories.
 
 ===========
 Wacky Ideas
