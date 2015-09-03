@@ -2,11 +2,7 @@
 """A simple script for showing requirements actually in use in the same format as pip freeze"""
 import os
 from os import path
-import contextlib
-import pip
 from pip import get_installed_distributions
-import sys
-from cStringIO import StringIO
 from ast import parse, Import, ImportFrom
 import argparse
 
@@ -33,14 +29,14 @@ def get_py_files(project_path, depth = None, *args, **kwargs):
     :param project_path: path to start at
     :return: a list of paths to python files
     """
-
-    project_path = os.path.join(os.getcwd(), project_path)
-
-    for current_directory, directory_names, file_names in os.walk(project_path):
-        if not depth or (depth and path_distance(project_path, current_directory) <= depth):
-            for file_name in file_names:
-                if file_name.split('.')[-1] == 'py':
-                    yield os.path.join(current_directory,file_name)
+    if os.path.isfile(project_path) and project_path.split('.')[-1] == 'py':
+        yield project_path
+    else:
+        for current_directory, directory_names, file_names in os.walk(project_path):
+            if not depth or (depth and path_distance(project_path, current_directory) <= depth):
+                for file_name in file_names:
+                    if file_name.split('.')[-1] == 'py':
+                        yield os.path.join(current_directory,file_name)
 
 def get_imported_modules(py_file):
     """Takes a python file and yields all the modules imoprted
@@ -94,18 +90,25 @@ def path_distance(path1, path2):
 def get_arguments():
     parser = argparse.ArgumentParser()
     parser.add_argument("project_path",
-                        type=str,
+                        type=DirectoryOrPyFile,
                         nargs='?',
                         default=os.getcwd(),
-                        help="path of python project, defaults to current path ")
+                        help="path of python project or file, defaults to current path ")
     parser.add_argument("-v", "--virtualenv",
                         type = str,
                         help="specify virtualenv, (not implemented yet)")
     parser.add_argument("-d", "--depth",
                         type = int,
-                        help="How many levels deep to recurse(not implemented yet)")
+                        help="How many levels deep to recurse 0 is 1 path")
     args = parser.parse_args()
     return vars(args)
+class DirectoryOrPyFile(str):
+    def __new__(self, content):
+        project_path = os.path.join(os.getcwd(), content)
+        if os.path.isdir(project_path) or (os.path.isfile(project_path) and project_path.split('.')[-1] == 'py'):
+            return str.__new__(self, project_path)
+        else:
+            raise ValueError('{0} is not a valid path'.format(project_path))
 def main():
     args = get_arguments()
     freeze(**args)
