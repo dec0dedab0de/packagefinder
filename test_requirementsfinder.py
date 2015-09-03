@@ -24,10 +24,7 @@ EXAMPLE_PATH  = 'example'
 class TablibTestCase(unittest.TestCase):
     def setUp(self):
         self.example_path = EXAMPLE_PATH
-        self.fullexample_path = EXAMPLE_PATH
-        print os.getcwd()
-        print os.listdir('.')
-        # self.fullexample_path = requirementsfinder.DirectoryOrPyFile(EXAMPLE_PATH)
+        self.fullexample_path = requirementsfinder.DirectoryOrPyFile(EXAMPLE_PATH)
     def tearDown(self):
         self.example_path = None
     def test_ls(self):
@@ -37,7 +34,7 @@ class TablibTestCase(unittest.TestCase):
         self.assertEqual(expected_output,output)
     def test_make_freeze(self):
         """test that make freeze gives the expected output"""
-        expected_output = ['Flask==0.10.1','requests==2.7.0']
+        expected_output = ['Flask==0.10.1']
         output = list(requirementsfinder.make_freeze(self.fullexample_path))
         self.assertEqual(expected_output,output)
 
@@ -46,7 +43,7 @@ class TablibTestCase(unittest.TestCase):
     #     output = subprocess.check_output('requirementsfinder', cwd = os.getcwd())
     #     self.asser
     def test_command_line_with_dir(self):
-        expected_output = 'Flask==0.10.1\nrequests==2.4.3\n'
+        expected_output = 'Flask==0.10.1\n'
         output = subprocess.check_output(['requirementsfinder',self.example_path], cwd = os.getcwd())
         self.assertEqual(expected_output, output)
 
