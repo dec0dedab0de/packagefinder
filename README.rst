@@ -1,7 +1,9 @@
 requirementsfinder
 ==================
 
-A simple script to show requirements that are actually in use, in the same format as pip --freeze
+A simple script to show requirements that are actually being imported.
+Essentially the same thing as "pip freeze" but minus all those package you
+installed and forgot about.
 
 ============
 Installation
