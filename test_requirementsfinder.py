@@ -23,16 +23,21 @@ if "check_output" not in dir( subprocess ): # duck punch it in!
 EXAMPLE_PATH  = 'example'
 class TablibTestCase(unittest.TestCase):
     def setUp(self):
+        print('does this show up')
         self.example_path = EXAMPLE_PATH
         self.fullexample_path = requirementsfinder.DirectoryOrPyFile(EXAMPLE_PATH)
     def tearDown(self):
         self.example_path = None
-
+    def test_ls(self):
+        """failing on purpose to see ls"""
+        expected_output = 'icecream'
+        output = subprocess.check_output(['ls','-asl'], cwd = os.getcwd())
+        self.assertEqual(expected_output,output)
     def test_make_freeze(self):
         """test that make freeze gives the expected output"""
         expected_output = ['Flask==0.10.1','requests==2.7.0']
         output = list(requirementsfinder.make_freeze(self.fullexample_path))
-        self.assertEqual(expected,)
+        self.assertEqual(expected_output,output)
 
     # def test_command_line_default(self):
     #     expected_output = 'setuptools==12.2\npip==7.1.2\nrequirementsfinder==0.1\nrequests==2.4.3\n'
