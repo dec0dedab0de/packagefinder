@@ -25,7 +25,10 @@ class TablibTestCase(unittest.TestCase):
     def setUp(self):
         print('does this show up')
         self.example_path = EXAMPLE_PATH
-        self.fullexample_path = requirementsfinder.DirectoryOrPyFile(EXAMPLE_PATH)
+        self.fullexample_path = EXAMPLE_PATH
+        print os.getcwd()
+        print os.listdir()
+        # self.fullexample_path = requirementsfinder.DirectoryOrPyFile(EXAMPLE_PATH)
     def tearDown(self):
         self.example_path = None
     def test_ls(self):
