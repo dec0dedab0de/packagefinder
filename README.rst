@@ -7,10 +7,9 @@ A simple script to show requirements that are actually in use, in the same forma
 Installation
 ============
 
-You probably shouldn't right now, but if you must,
-create a symlink in your path to requirementsfinder.py and mark it as executable::
-    sudo ln -s /usr/bin/requirementsfinder /path/to/requirementsfinder.py
-    sudo chmod +x /usr/bin/requirementsfinder
+You probably shouldn't right now, but if you really want to, you can use pip, but it's not on pypi yet::
+
+    pip install git+https://github.com/dec0dedab0de/requirementsfinder.git
 
 =====
 Usage
