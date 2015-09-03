@@ -35,24 +35,24 @@ You can also specify a path::
 Gotchas, and TODOS
 ==================
 
-* Will currently ignore any packages it can't find
-    * should atleast warn that these imports couldn't find a package
-* There is some very specific data that it is currently ignoring, but I forget what it is.
-* Can not specify a specific virtualenv
-* Probably only works on python 2.7
-* Relies heavily on pip
-    * add support for packages installed by yum
-    * add support for packages installed by apt
-    * figure out other ways people install packages
-* Only works with .py files in a directory
-    * maybe allow specifying a single file, or list of files, or list of paths
-    * it would be nice to handle other filetypes, like ipynb, or others.
-* Add an option to specify a depth for recurssing directories.
+- Will currently ignore any packages it can't find
+    - should at least warn that these imports couldn't find a package
+- There is some very specific data that it is currently ignoring, but I forget what it is.
+- Can not specify a specific virtualenv
+- Probably only works on python 2.7
+- Relies heavily on pip
+    - add support for packages installed by yum
+    - add support for packages installed by apt
+    - figure out other ways people install packages
+- Only works with .py files in a directory
+    - maybe allow specifying a single file, or list of files, or list of paths
+    - it would be nice to handle other filetypes, like ipynb, or others.
+- Add an option to specify a depth for recurssing directories.
 
 ===========
 Wacky Ideas
 ===========
 
-* Run a test script, and slowly build up imports based on failures.
-* scour github, and bitbucket, or a list of package locations for stuff not in pypi
-* build other install scripts besides requirements.txt
+- Run a test script, and slowly build up imports based on failures.
+- scour github, and bitbucket, or a list of package locations for stuff not in pypi
+- build other install scripts besides requirements.txt
