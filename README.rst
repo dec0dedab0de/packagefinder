@@ -44,3 +44,15 @@ Gotchas, and TODOS
     * add support for packages installed by yum
     * add support for packages installed by apt
     * figure out other ways people install packages
+* Only works with .py files in a directory
+    * maybe allow specifying a single file, or list of files, or list of paths
+    * it would be nice to handle other filetypes, like ipynb, or others.
+* Add an option to specify a depth for recurssing directories.
+
+===========
+Wacky Ideas
+===========
+
+* Run a test script, and slowly build up imports based on failures.
+* scour github, and bitbucket, or a list of package locations for stuff not in pypi
+* build other install scripts besides requirements.txt

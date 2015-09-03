@@ -10,9 +10,6 @@ from cStringIO import StringIO
 from ast import parse, Import, ImportFrom
 import argparse
 
-#todo: add a way to choose virtual env
-#todo: show a warning for unfound packages
-
 def get_top_levels():
     '''returns a dict with the keys from all of the top_level.txt entries, and the freeze name as the value'''
     output = {}
@@ -81,8 +78,12 @@ def main():
                         nargs='?',
                         default=os.getcwd(),
                         help="path of python project, defaults to current path ")
-    parser.add_argument("-v", "--verbose", action="store_true",
-                        help="increase output verbosity")
+    parser.add_argument("-v", "--virtualenv",
+                        type = str,
+                        help="specify virtualenv, (not implemented yet)")
+    parser.add_argument("-d", "--depth",
+                        type = int,
+                        help="How many levels deep to recurse(not implemented yet)")
     args = parser.parse_args()
 
     freeze(project_path = args.project_path)
