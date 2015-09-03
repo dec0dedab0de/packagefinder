@@ -1,5 +1,5 @@
 requirementsfinder
-==================
+##################
 
 A simple script to show requirements that are actually being imported.
 Essentially the same thing as "pip freeze" but minus all those package you
@@ -46,7 +46,7 @@ Gotchas, and TODOS
     - add support for packages installed by apt
     - figure out other ways people install packages
 - Only works with .py files in a directory
-    - maybe allow specifying a single file, or list of files, or list of paths
+    - maybe allow specifying a list of paths
     - it would be nice to handle other filetypes, like ipynb, or others.
 
 ===========
