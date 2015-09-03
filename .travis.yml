@@ -8,10 +8,7 @@ python:
   - 3.4
   - nightly
   - pypy3
-os:
-  - linux
-  - osx
-  - windows
+
 install:
   - pip install .
   - "pip install Flask==0.10.1"
