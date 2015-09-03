@@ -24,14 +24,15 @@ EXAMPLE_PATH  = 'example'
 class TablibTestCase(unittest.TestCase):
     def setUp(self):
         self.example_path = EXAMPLE_PATH
-
+        self.fullexample_path = requirementsfinder.DirectoryOrPyFile(EXAMPLE_PATH)
     def tearDown(self):
         self.example_path = None
 
     def test_make_freeze(self):
         """test that make freeze gives the expected output"""
-        expected = ['Flask==0.10.1','requests==2.7.0']
-        self.assertEqual(expected,list(requirementsfinder.make_freeze(self.example_path)))
+        expected_output = ['Flask==0.10.1','requests==2.7.0']
+        output = list(requirementsfinder.make_freeze(self.fullexample_path))
+        self.assertEqual(expected,)
 
     # def test_command_line_default(self):
     #     expected_output = 'setuptools==12.2\npip==7.1.2\nrequirementsfinder==0.1\nrequests==2.4.3\n'
