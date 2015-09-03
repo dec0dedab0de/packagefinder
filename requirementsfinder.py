@@ -25,9 +25,13 @@ def get_top_levels():
                     output[line.strip()] = freeze_name
     return output
 
-def get_py_files(project_path = None):
-    if not project_path:
-        project_path = os.getcwd()
+def get_py_files(project_path):
+    """
+    Takes a path, yields a list of py files in that path.
+
+    :param project_path: path to start at
+    :return: a list of paths to python files
+    """
     project_path = os.path.join(os.getcwd(), project_path)
 
     for current_directory, directory_names, file_names in os.walk(project_path):
@@ -41,7 +45,7 @@ def get_imported_modules(py_file):
     with open(py_file) as f:
         text = f.read()
     try:
-        tree = parse(text,filename = 'parseerrors.txt')
+        tree = parse(text)
         for c in tree.body:
             if type(c) == Import:
                 for alias in c.names:
