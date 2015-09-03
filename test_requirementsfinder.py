@@ -27,11 +27,6 @@ class TablibTestCase(unittest.TestCase):
         self.fullexample_path = requirementsfinder.DirectoryOrPyFile(EXAMPLE_PATH)
     def tearDown(self):
         self.example_path = None
-    def test_ls(self):
-        """failing on purpose to see ls"""
-        expected_output = 'icecream'
-        output = subprocess.check_output(['ls','-asl'], cwd = os.getcwd())
-        self.assertEqual(expected_output,output)
     def test_make_freeze(self):
         """test that make freeze gives the expected output"""
         expected_output = ['Flask==0.10.1']
