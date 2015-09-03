@@ -41,3 +41,6 @@ class TablibTestCase(unittest.TestCase):
         expected_output = 'Flask==0.10.1\nrequests==2.4.3\n'
         output = subprocess.check_output(['requirementsfinder',self.example_path], cwd = os.getcwd())
         self.assertEqual(expected_output, output)
+
+if __name__ == '__main__':
+    unittest.main()
