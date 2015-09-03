@@ -1,8 +1,8 @@
 from setuptools import setup
 
 # may work with older versions of pip, should find out.
-setup(name='requirementsfinder',
-      version='0.001',
+setup(name='requiremensfinder',
+      version='0.01',
       py_modules=['requirementsfinder'],
       install_requires=['pip>=6.1.1'],
       author='James P Robinson Jr',
