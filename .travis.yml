@@ -10,7 +10,7 @@ python:
   - pypy3
 
 install:
-  - python setup.py install
+  - pip install .
   - "pip install Flask==0.10.1"
   - "pip install requests==2.7.0"
 script: python test_requirementsfinder.py
