@@ -23,11 +23,10 @@ if "check_output" not in dir( subprocess ): # duck punch it in!
 EXAMPLE_PATH  = 'example'
 class TablibTestCase(unittest.TestCase):
     def setUp(self):
-        print('does this show up')
         self.example_path = EXAMPLE_PATH
         self.fullexample_path = EXAMPLE_PATH
         print os.getcwd()
-        print os.listdir()
+        print os.listdir('.')
         # self.fullexample_path = requirementsfinder.DirectoryOrPyFile(EXAMPLE_PATH)
     def tearDown(self):
         self.example_path = None
