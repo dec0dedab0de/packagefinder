@@ -38,7 +38,7 @@ class TablibTestCase(unittest.TestCase):
     #     output = subprocess.check_output('requirementsfinder', cwd = os.getcwd())
     #     self.asser
     def test_command_line_with_dir(self):
-        expected_output = 'Flask==0.10.1\n'
+        expected_output = b'Flask==0.10.1\n'
         output = subprocess.check_output(['requirementsfinder',self.example_path], cwd = os.getcwd())
         self.assertEqual(expected_output, output)
 
