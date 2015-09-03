@@ -4,7 +4,7 @@ from setuptools import setup
 setup(name='requirementsfinder',
       version='0.001',
       py_modules=['requirementsfinder'],
-      requires=['pip>=6.1.1'],
+      install_requires=['pip>=6.1.1'],
       author='James P Robinson Jr',
       author_email="JamesPRobinsonJr@gmail.com",
       entry_points={
